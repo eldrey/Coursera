@@ -10,14 +10,6 @@ def generate_response(messages: List[Dict]) -> str:
     )
     return response.choices[0].message.content
 
-def parser_code(response:str):
-    code_pattern = r"```(?:\w+\n)?(.*?)```"
-    response = re.findall(code_pattern, response, re.DOTALL)
-    response = "\n\n".join([c.strip() for c in response])
-    # response = response.split("```")[1]
-    response = re.sub(r"(\"\"\"[\s\S]*?\"\"\"|\'\'\'[\s\S]*?\'\'\')", "", response)
-    
-    return response
 
 messages = [
     {"role": "system", "content": "You are an expert software engineer."},
@@ -25,11 +17,18 @@ messages = [
 
 
 if __name__ == "__main__":
-    function = "A function that takes a word and returns all possible palindromes within that word python" #input("What function do you want to create? ")
-    messages.append({"role":"user", "content": f"Write a basic python function based on this description: {json.dumps(function)}"})
+    function = "A function that takes a word and returns all possible palindromes within that word In Python" #input("What function do you want to create? ")
+    messages.append({"role":"user", "content": f"Write only a basic Python function, without comments, examples, or descriptions, based on this description: {json.dumps(function)}"})
 
     response = generate_response(messages)
-    print(parser_code(response))
+    print("================ First response =================")
+    print(response)
+    messages.append({"role": "assistant", "content": response})
+    messages.append({"role": "user", "content": "Update the function to include documentation."})
+    print("================ Second response =================")
+    response = generate_response(messages)
+    print(response)
+
 
 
 
