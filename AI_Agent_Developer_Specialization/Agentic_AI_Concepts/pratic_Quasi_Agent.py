@@ -26,6 +26,13 @@ def extract_code_block(response: str) -> str:
 
     return code_block
 
+def extract_documentation_block(response: str) -> str:
+    """Extract documentation block from response"""
+    docstring_match = re.search(r'"""(.*?)"""', response, re.DOTALL)
+    if docstring_match:
+        return docstring_match.group(0)
+    return ""
+
 if __name__ == "__main__":
     function = "A function that takes a word and returns all possible palindromes within that word In Python" #input("What function do you want to create? ")
     messages.append({"role":"user", "content": f"Write only a basic Python function, without comments, examples, or descriptions, based on this description: {json.dumps(function)}"})
@@ -36,6 +43,11 @@ if __name__ == "__main__":
     messages.append({"role": "assistant", "content": extract_code_block(response)})
     messages.append({"role": "user", "content": "Update the function to include documentation."})
     print("================ Second response =================")
+    response = generate_response(messages)
+    print(response)
+    print("================ Third response =================")
+    messages.append({"role": "assistant", "content": extract_documentation_block(response)})
+    messages.append({"role": "user", "content": "Using Python's unittest framework, write unit tests for the function."})
     response = generate_response(messages)
     print(response)
 
