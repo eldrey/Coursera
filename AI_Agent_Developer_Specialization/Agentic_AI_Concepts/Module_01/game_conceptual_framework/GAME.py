@@ -10,7 +10,7 @@ from litellm import completion
 class Prompt:
     messages: List[Dict] = field(default_factory=list)
     tools: List[Dict] = field(default_factory=list)
-    metadata: dict = field(default_factory=dict)  # Fixing mutable default issue
+    metadata: dict = field(default_factory=dict)
 
 def generate_response(prompt: Prompt) -> str:
     """Call LLM to get response"""
@@ -96,6 +96,13 @@ class Memory:
     def get_memories(self, limit: int = None) -> List[Dict]:
         """Get formatted conversation history for prompt"""
         return self.items[:limit]
+
+    def copy_without_system_memories(self):
+        """Return a copy of the memory without system memories"""
+        filtered_items = [m for m in self.items if m["type"] != "system"]
+        memory = Memory()
+        memory.items = filtered_items
+        return memory
 
 class Environment:
     def execute_action(self, action: Action, args: dict) -> dict:

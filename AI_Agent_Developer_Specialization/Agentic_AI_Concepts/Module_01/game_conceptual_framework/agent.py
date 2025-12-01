@@ -47,7 +47,7 @@ class Agent:
         """
         new_memories = [
             {"type": "assistant", "content": response},
-            {"type": "user", "content": json.dumps(result)}
+            {"type": "environment", "content": json.dumps(result)}
         ]
         for m in new_memories:
             memory.add_memory(m)

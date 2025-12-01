@@ -1,4 +1,6 @@
-This README was created by this code using the query `Create a READM.md basede on the files in this path`
+## AI log
+This README was created by this code using the query `Create a READM.md based on the files in this path`
+This README was updated with decorator with query `Update the README file based on the new files on this path`
 
 # File Explorer Agent
 
@@ -6,13 +8,13 @@ This project implements a file explorer agent that can interact with the file sy
 
 ## Project Structure
 
-The project consists of three main Python files:
+The project consists of several main Python files:
 
 - `GAME.py`: This file contains the core framework components for building agents, including classes for `Prompt`, `Goal`, `Action`, `ActionRegistry`, `Memory`, `Environment`, and `AgentLanguage`. It also defines the `generate_response` function for interacting with a large language model (LLM).
-
 - `agent.py`: This file defines the `Agent` class, which orchestrates the agent's behavior. It handles constructing prompts, parsing LLM responses, executing actions, and updating the agent's memory.
-
 - `main.py`: This is the entry point of the application. It sets up the specific goals and actions for the file explorer agent, registers these actions, initializes the agent language and environment, and then runs the agent loop based on user input.
+- `decorators.py`: This file likely contains decorators used within the project to modify the behavior of functions or classes.
+- `tools.py`: This file probably holds utility functions or a collection of tools that the agent can utilize.
 
 ## Key Features
 
@@ -41,7 +43,7 @@ Agent Decision: {"tool": "list_files", "args": {}}
 Action Result: {"tool_executed": true, "result": ["__pycache__", "GAME.py", "agent.py", "main.py", "README.md"], "timestamp": "..."}
 
 Memory: {"type": "assistant", "content": "{\"tool\": \"list_files\", \"args\": {}}", "timestamp": "..."}
-Memory: {"type": "user", "content": "{\"tool_executed\": true, \"result\": [\"__pycache__\", \"GAME.py\", \"agent.py\", \"main.py\", \"README.md\"], \"timestamp\": \"...\"}"}
+Memory: {"type": "user", "content": "{\"tool_executed\": true, \"result\": [\"__pycache__\", \"GAME.py\", \"agent.py\", \"main.py\", \"README.md\"], \"timestamp\": \"..."}"}
 ```
 
 ## Components Explained
